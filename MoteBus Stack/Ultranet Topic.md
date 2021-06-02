@@ -130,10 +130,11 @@
 
 | <div style="width: 150pt">topic | <div style="width: 230pt">description | <div style="width: 100pt">payload |
 |:------------ |:-----------|:-------|
-| obj://add    |             |         |
-| obj://set   |             |         |
-| obj://delete |             |         |
-| obj://list   |             |         |
+| obj://add    | insert object            |{"name": object name,"data": {}}         |
+| obj://set    | update object            |{"oid": object oid,"name": object name, "data": {}}         |
+| obj://delete | delete object            |{"oid": object oid}         |
+| obj://get    | get object               |{"oid": object oid}         |   
+| obj://list   | list objects             |{"condition": {"name": object name}  }     |
    
 
 
@@ -141,21 +142,22 @@
 
   | <div style="width: 150pt">topic | <div style="width: 230pt">description | <div style="width: 100pt">payload |
   |:---------------------- |:----------- |:------- |
-  | mail:// *address*      |             |         |
-  | sms :// *phone number* |             |         |
-  | tg:// *chat id*        |             |         |
-  | ioc:// *chat id*       |             |         |
-  | git:// *chat id*       |             |         |
-  | console:// *chat id*   |             |         |
-  | watch:// *chat id*     |             |         |
-  | mpod:// *chat id*      |             |         |
-  | line:// *line id*      |             |         |
-  | fb:// *fb id*          |             |         |
-  | sip://                 |             |         |
-  | mqtt://*mqtt topic*    |             |         |
-  | echo                   |             |         |
-
-
+  | mail:// *address*      |send msg by email             |{"content":mail content,"subject":mail subject}|
+  | sms :// *phone number* |send msg by sms             |{"text":sms content}         |
+  | tg:// *chat id*        |send msg by tg             |{"content":telegram content,"type":send method, available type :['message','photo','audio','document','video','animation','voice','sticker'], default is 'message',
+"from":telegram bot name, available bot:['pinponboybot','jujuebot','lovetubebot','ypcloudbot','ultravisorbot','smartscreenbot'], default is pinponboy,"cc": chat_id of cc (optional),"parse_mode":"MarkdownV2" (optional)}         |
+  | ioc:// *chat id*       |send msg by tg with IOC format            |{"content":telegram content,"from":telegram bot name, "to": to_name,"cc": chat_id of cc,options}     |
+  | git:// *chat id*       |send msg by tg from git  with IOC format  |:{"content":telegram content,"type":send method,"from":telegram bot name, "cc": chat_id of cc (optional),"parse_mode":"MarkdownV2" (optional)}         |
+  | console:// *chat id*   |send object msg  with IOC format          |{"content":telegram content,"from":telegram bot name, "to": to_name,"cc": chat_id of cc,options}     |
+  | watch:// *chat id*     |send msg with IOC format from watch       |{"content":telegram content,"from":telegram bot name, "to": to_name,"cc": chat_id of cc,options}     |
+  | mpod:// *chat id*      |send msg with IOC format from mpod        |{"content":telegram content,"from":telegram bot name, "to": to_name,"cc": chat_id of cc,options}     |
+  | line:// *line id*      | not available            |         |
+  | fb:// *fb id*          | not available            |         |
+  | sip://                 | not available            |         |
+  | mqtt://*mqtt topic*    | not available            |         |
+  | echo                   | not available            |         |
+  | log://username         |send msg to log           | {"text":log content,"uid": user id(optional)}        |
+  | view://username        |send msg to view          | {"text":view content}        |
 ### sys
 
 | <div style="width: 150pt">topic | <div style="width: 230pt">description | <div style="width: 100pt">payload |
@@ -185,8 +187,10 @@
 
 | <div style="width: 150pt">topic | <div style="width: 230pt">description | <div style="width: 100pt">payload |
 |:--------------------- | ----------- | ------- |
-| kanban://*kanban tag* |             |         |
-
+| kanban://disp   |             |{"tag":kanban tag,"kanban":[{"name":item name,"data":{}} ] }       |
+| kanban://create |             |{"tag":kanban tag}         |
+| kanban://clear  |             |{"tag":kanban tag}       |
+| kanban://delete |             |{"tag":kanban tag}        |   
 
 ### UC
 
